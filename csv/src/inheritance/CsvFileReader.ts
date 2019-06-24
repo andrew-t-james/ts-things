@@ -1,16 +1,12 @@
 import fs from 'fs';
-import { MatchResult } from './MatchResult';
-import { dateStringToDate } from '../utils';
-
-type MatchData = [Date, string, string, number, number, MatchResult, string];
 
 // never gets instantiated with keyword new
-abstract class CsvFileReader {
-  data: MatchData[] = [];
+abstract class CsvFileReader<T> {
+  data: T[] = [];
 
   constructor(public fileName: string) {}
 
-  abstract mapRow(row: string[]): MatchData;
+  abstract mapRow(row: string[]): T;
 
   read(): void {
     this.data = fs
