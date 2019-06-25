@@ -8,7 +8,7 @@ class MatchReader {
     }
     load() {
         this.reader.read();
-        this.reader.data.map((row) => {
+        this.matches = this.reader.data.map((row) => {
             return [
                 utils_1.dateStringToDate(row[0]),
                 row[1],
