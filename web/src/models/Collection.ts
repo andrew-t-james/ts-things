@@ -4,7 +4,7 @@ import Eventing from './Eventing';
 class Collection<T, K> {
   models: T[] = [];
   events: Eventing = new Eventing();
-  constructor(public rootUrl: string, public deSerialize: (json: K) => T) {}
+  constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
 
   get on() {
     return this.events.on;
@@ -17,10 +17,10 @@ class Collection<T, K> {
   fetch(): void {
     axios.get(this.rootUrl).then((res: AxiosResponse) => {
       res.data.forEach((value: K) => {
-        this.models.push(this.deSerialize(value));
+        this.models.push(this.deserialize(value));
       });
+      this.trigger('change');
     });
-    this.trigger('change');
   }
 }
 
