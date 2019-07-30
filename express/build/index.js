@@ -7,11 +7,14 @@ var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
 var loginRoutes_1 = require("./routes/loginRoutes");
+var AppRouter_1 = __importDefault(require("./AppRouter"));
+require("./controllers/LoginController");
 var app = express_1.default();
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(cookie_session_1.default({
     keys: ['passwords-here']
 }));
 app.use(loginRoutes_1.router);
+app.use(AppRouter_1.default.getInstance());
 // eslint-disable-next-line no-console
 app.listen(3000, function () { return console.log('Listening on port 3000'); });
