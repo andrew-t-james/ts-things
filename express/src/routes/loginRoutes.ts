@@ -39,35 +39,6 @@ router.get('/logout', (req: Request, res: Response) => {
   res.redirect('/');
 });
 
-router.get('/login', (req: Request, res: Response) => {
-  res.send(`
-    <form method="POST">
-      <div>
-        <label>Email</label>
-        <input type="text" name="email" />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" />
-      </div>
-      <button>Submit</button>
-    </form>
-  `);
-});
-
-router.post('/login', (req: RequestWithBody, res: Response) => {
-  const { email, password } = req.body;
-
-  if (email && password && email === 'me@mail.com' && password === 'pass') {
-    req.session = {
-      loggedIn: true
-    };
-    res.redirect('/');
-  } else {
-    res.send('Invalid email password');
-  }
-});
-
 router.get('/protected', requireAuth, (req: Request, res: Response) => {
   res.send('Welcome to protected route user');
 });

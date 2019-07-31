@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { controller, get } from './decorators';
+import { controller, get, bodyValidator, post } from './decorators';
 
 @controller('/auth')
 class LoginController {
@@ -18,6 +18,21 @@ class LoginController {
       <button>Submit</button>
     </form>
   `);
+  }
+
+  @post('/login')
+  @bodyValidator('email', 'password')
+  postLogin(req: Request, res: Response) {
+    const { email, password } = req.body;
+
+    if (email === 'me@mail.com' && password === 'pass') {
+      req.session = {
+        loggedIn: true
+      };
+      res.redirect('/');
+    } else {
+      res.send('Invalid email password');
+    }
   }
 }
 
