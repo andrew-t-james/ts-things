@@ -2,24 +2,22 @@ import React from 'react'
 import ReactDom from 'react-dom'
 
 interface AppProps {
-  color?: string
+  color?: string;
 }
 
 interface AppState {
-  counter: number
+  counter: number;
 }
 
 class App extends React.Component<AppProps, AppState> {
   state = { counter: 0 }
 
   plusOne = (): void => {
-    const { counter } = this.state
-    this.setState({ counter: counter + 1 })
+    this.setState(({ counter }) => ({ counter: counter + 1 }))
   }
 
   minusOne = (): void => {
-    const { counter } = this.state
-    this.setState({ counter: counter - 1 })
+    this.setState(({ counter }) => ({ counter: counter - 1 }))
   }
 
   render() {
