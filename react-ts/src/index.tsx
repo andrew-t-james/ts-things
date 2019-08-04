@@ -1,10 +1,36 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 
-function App() {
-  return (
-    <div>hello</div>
-  )
+interface AppProps {
+  color?: string
 }
 
-ReactDom.render(<App/>, document.querySelector('#root'))
+interface AppState {
+  counter: number
+}
+
+class App extends React.Component<AppProps, AppState> {
+  state = { counter: 0 }
+
+  plusOne = (): void => {
+    const { counter } = this.state
+    this.setState({ counter: counter + 1 })
+  }
+
+  minusOne = (): void => {
+    const { counter } = this.state
+    this.setState({ counter: counter - 1 })
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.plusOne}>Plus One</button>
+        <button onClick={this.minusOne}>Minus One</button>
+        {this.state.counter}
+      </div>
+    )
+  }
+}
+
+ReactDom.render(<App color="red"/>, document.querySelector('#root'))
