@@ -9,9 +9,23 @@ interface AppProps {
   deleteTodo: typeof deleteTodo;
 }
 
-export class App extends Component<AppProps> {
+interface AppState {
+  loading: boolean;
+}
+
+export class App extends Component<AppProps, AppState> {
+  state = {
+    loading: false
+  }
+
+  componentDidUpdate(prevProps: AppProps) {
+    if(!prevProps.todos.length && this.props.todos.length) {
+      this.setState({ loading: false })
+    }
+  }
 
   onClick = (): void => {
+    this.setState({ loading: true })
     this.props.fetchTodos()
   }
 
@@ -37,6 +51,7 @@ export class App extends Component<AppProps> {
     return (
     <>
       <button onClick={this.onClick}>Fetch</button>
+      {this.state.loading && <div>Loading</div>}
       {this.renderList()}
     </>
     )
